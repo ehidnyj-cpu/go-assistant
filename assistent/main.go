@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"      // доступ к стандартному вводу (stdin)
 	"strings" // работа со строками
-	//для подсчета символов на кириллице
 )
 
 func main() {
@@ -15,6 +14,8 @@ func main() {
 	fmt.Println()
 
 	reader := bufio.NewReader(os.Stdin) // Создаем reader для чтения файла
+
+	emptyCount := 0
 
 	for {
 
@@ -34,6 +35,29 @@ func main() {
 			break
 		}
 
+		input = strings.TrimSpace(input)
+
+		if input == "" {
+			emptyCount++
+
+			if emptyCount == 1 {
+				fmt.Println("Ну давай пообщаемся")
+				fmt.Println()
+			}
+
+			if emptyCount == 2 {
+				fmt.Println("Эй, ты здесь?")
+				fmt.Println()
+			}
+
+			if emptyCount == 3 {
+				fmt.Println("Ну не хочешь общаться и ладно. Пока")
+				break
+			}
+
+			continue
+		}
+		emptyCount = 0
 		response := Respond(input)
 		fmt.Println(response)
 		fmt.Println()
